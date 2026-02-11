@@ -1,6 +1,6 @@
 {
   "name": "canonical-cat",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Automated catalog generator for React components and utilities with smart versioning and LLM enhancement",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
