@@ -1,0 +1,423 @@
+{
+  "generated": "2026-02-11T02:06:27.312Z",
+  "version": "1.0.0",
+  "components": [
+    {
+      "name": "default",
+      "type": "component",
+      "filePath": "src/App.tsx",
+      "exportType": "named",
+      "signature": "function App()",
+      "props": [],
+      "jsDoc": "Main application component that demonstrates various UI components and hooks",
+      "implementationHash": "05cf6f43d6052a9f6cc18bc79cda9465ecc03033b3bde2099576497b5fb28274",
+      "interfaceHash": "e06d95e530dc0d6a229c41f00868593ab860639d1731088c645716e3d93ad72d",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "ButtonVariant",
+      "type": "type",
+      "filePath": "src/components/Button.tsx",
+      "exportType": "named",
+      "signature": "export type ButtonVariant = \"primary\" | \"secondary\" | \"danger\" | \"success\";",
+      "props": [],
+      "jsDoc": "Button variants for different visual styles",
+      "implementationHash": "e15cb097d1391cacee40520df266944a2a64a26151a2017b13efdfc63ed7a1d9",
+      "interfaceHash": "59e3c9613ef19fa4567dcc332237ed9c32b4c4360cf3624588ef2697b6aff7b1",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "ButtonProps",
+      "type": "type",
+      "filePath": "src/components/Button.tsx",
+      "exportType": "named",
+      "signature": "export interface ButtonProps {\r",
+      "props": [],
+      "jsDoc": "Props for the Button component",
+      "implementationHash": "1955cecef54cdc26fae08aad1b4db0394be4f1290fb80f1a7c1a66e4d1942bd1",
+      "interfaceHash": "de638538ba68e3d41c06a1128d75b8e01c0b43b9644061292db025fc140d047c",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "Button",
+      "type": "component",
+      "filePath": "src/components/Button.tsx",
+      "exportType": "named",
+      "signature": "Button = ({\r\n  children,\r\n  variant = \"primary\",\r\n  onClick,\r\n  disabled = false,\r\n  type = \"button\",\r\n  className = \"\",\r\n}: ButtonProps) => ...",
+      "props": [],
+      "jsDoc": "Reusable button component with multiple style variants\r\nUse this for all clickable actions throughout the application",
+      "implementationHash": "e9b80350553099d7eb8d484cd1ade5dc9906d1dd6ff51e65c8970ce5f7ecb8b1",
+      "interfaceHash": "d8d1fa1b4fdae451b8e3ac4d5a9c7e3ab39b62d79019261c1512bc2b49835a50",
+      "usedIn": [
+        {
+          "filePath": "src/App.tsx",
+          "line": 26
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 28
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 29
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 31
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 32
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 34
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 39
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 41
+        }
+      ],
+      "stories": []
+    },
+    {
+      "name": "CardVariant",
+      "type": "type",
+      "filePath": "src/components/Card.tsx",
+      "exportType": "named",
+      "signature": "export type CardVariant = \"primary\" | \"secondary\" | \"info\" | \"warning\";",
+      "props": [],
+      "jsDoc": "Card variants for different visual styles",
+      "implementationHash": "a428435055972b5f47b57f2751297add23c3895177923c2397ac869528b1adfb",
+      "interfaceHash": "66f6f5b77628f54c107706a800b145798cc4c200f62a8421ef33033a4da999c0",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "CardProps",
+      "type": "type",
+      "filePath": "src/components/Card.tsx",
+      "exportType": "named",
+      "signature": "export interface CardProps {\r",
+      "props": [],
+      "jsDoc": "Props for the Card component",
+      "implementationHash": "cc043c417d946599c10cd76cc0889673d61e64187e1ac1202cd90f057a797b5d",
+      "interfaceHash": "55ba615f305423bca47af4737e032812716928c64f920f93a0fc7731fe718de7",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "Card",
+      "type": "component",
+      "filePath": "src/components/Card.tsx",
+      "exportType": "named",
+      "signature": "Card = ({\r\n  title,\r\n  children,\r\n  variant = \"primary\",\r\n  footer,\r\n  className = \"\",\r\n}: CardProps) => ...",
+      "props": [],
+      "jsDoc": "Card component for grouping related content with optional title and footer\r\nCommonly used for dashboard widgets, content sections, and feature highlights",
+      "implementationHash": "334ec7a5136385a91303bd3177702250c08856d6e3b71bd5a97add96123f93a5",
+      "interfaceHash": "c09ef4daffe90a1614a5b2863e3aaf5bb62b7c0234f5b4fc9f4affd2415e4b97",
+      "usedIn": [
+        {
+          "filePath": "src/App.tsx",
+          "line": 23
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 36
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 38
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 42
+        }
+      ],
+      "stories": []
+    },
+    {
+      "name": "ModalProps",
+      "type": "type",
+      "filePath": "src/components/Modal.tsx",
+      "exportType": "named",
+      "signature": "export interface ModalProps {\r",
+      "props": [],
+      "jsDoc": "Props for the Modal component",
+      "implementationHash": "8fbdfe5027a66bf9c66ef6bcc89574d429dc71dcfd8d6b30d80a26e961a3d9ad",
+      "interfaceHash": "ee601a38308f254865a394f5683de937633211bb0534a15d0e6c486ae430d26b",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "Modal",
+      "type": "component",
+      "filePath": "src/components/Modal.tsx",
+      "exportType": "named",
+      "signature": "Modal = ({\r\n  isOpen,\r\n  onClose,\r\n  title,\r\n  children,\r\n  width = \"500px\",\r\n}: ModalProps) => ...",
+      "props": [],
+      "jsDoc": "Modal dialog component for displaying content in an overlay\r\nUse this for confirmations, forms, or detailed information that needs focus",
+      "implementationHash": "008ea4ae3ebba28be2aa231170c400ce1231fb4e385735bfe5a4d03720655c99",
+      "interfaceHash": "25a3a4a736d892d4f3be6fa11ad0060c87fbf17f0728bc3f1f496e74ecaecf67",
+      "usedIn": [
+        {
+          "filePath": "src/App.tsx",
+          "line": 44
+        },
+        {
+          "filePath": "src/App.tsx",
+          "line": 47
+        }
+      ],
+      "stories": []
+    },
+    {
+      "name": "UseCounterReturn",
+      "type": "type",
+      "filePath": "src/hooks/useCounter.ts",
+      "exportType": "named",
+      "signature": "export interface UseCounterReturn {\r",
+      "props": [],
+      "jsDoc": "Return type for the useCounter hook",
+      "implementationHash": "b8467bc81d4093bec1304291e6cfec21f551359c44190172ea01123f612357d0",
+      "interfaceHash": "d96079a731b4acabe1f93665a7749632dda92520d65e1be930398e1f4f7ee5d9",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "useCounter",
+      "type": "hook",
+      "filePath": "src/hooks/useCounter.ts",
+      "exportType": "named",
+      "signature": "useCounter = (initialValue: number = 0): UseCounterReturn => ...",
+      "props": [],
+      "jsDoc": "Hook for managing a numeric counter with increment, decrement, and reset functionality\r\nUse this for any counting logic like pagination, quantity selectors, or score tracking",
+      "implementationHash": "7b922a2a56e8d867bcd2b51ef65c9149259571259321f72a3d17325b5c8f6ad3",
+      "interfaceHash": "caaf441b26d679a3b215087ee1b2ba54459cd9c89f4686fbe5ac23cdad35fd61",
+      "usedIn": [
+        {
+          "filePath": "src/App.tsx",
+          "line": 13
+        }
+      ],
+      "stories": []
+    },
+    {
+      "name": "useLocalStorage",
+      "type": "hook",
+      "filePath": "src/hooks/useLocalStorage.ts",
+      "exportType": "named",
+      "signature": "useLocalStorage = (key: string, initialValue: T): [T, (value: T) => void] => ...",
+      "props": [],
+      "jsDoc": "Hook for managing state that persists in localStorage\r\nUse this to save user preferences, form data, or any state that should survive page refreshes",
+      "implementationHash": "569dc9e13907cfc4e6c9b7c30e9d4b4250c51710696e161d0ebb090dd208eb2f",
+      "interfaceHash": "d8891a871b4d383a7e28ea0346eeb37d007b095f04b5212e126cae4e50a5cc9e",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "useToggle",
+      "type": "hook",
+      "filePath": "src/hooks/useToggle.ts",
+      "exportType": "named",
+      "signature": "useToggle = (initialValue: boolean = false): [boolean, () => void] => ...",
+      "props": [],
+      "jsDoc": "Hook for managing boolean toggle state\r\nUse this for any on/off, show/hide, or open/close scenarios",
+      "implementationHash": "27222557183ac09609170f859d17eef46951af15fdecdcd31d7238408ff95733",
+      "interfaceHash": "0bfbad0008e87e6c370dc418ba1b0fe3e40c96708a68c4230f137fd9fb0b7154",
+      "usedIn": [
+        {
+          "filePath": "src/App.tsx",
+          "line": 12
+        }
+      ],
+      "stories": []
+    },
+    {
+      "name": "User",
+      "type": "type",
+      "filePath": "src/types/index.ts",
+      "exportType": "named",
+      "signature": "export type User = {\r",
+      "props": [],
+      "jsDoc": "User type definition",
+      "implementationHash": "959860064e3a5664162d982bb26a0d85bc27f53af237633b119add42aeab9db1",
+      "interfaceHash": "920a62a830259cc5334d9bba7b0dc9e2fbf76791a23e87130338ff7e46b6e223",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "ApiResponse",
+      "type": "type",
+      "filePath": "src/types/index.ts",
+      "exportType": "named",
+      "signature": "export type ApiResponse<T> = {\r",
+      "props": [],
+      "jsDoc": "API response wrapper type",
+      "implementationHash": "c733165669b38566347b4094ef3dab0fec1de41e4225bda81f0959e05d8af549",
+      "interfaceHash": "e594ae5300bec895867dd5312beb5662ae9e5a1b69084e6d461be7469a3ff9a5",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "PaginationMeta",
+      "type": "type",
+      "filePath": "src/types/index.ts",
+      "exportType": "named",
+      "signature": "export type PaginationMeta = {\r",
+      "props": [],
+      "jsDoc": "Pagination metadata",
+      "implementationHash": "fd066efa7c7a7c1f6f2d80ae1863477ebb3602f26641bf5c477423544bb88447",
+      "interfaceHash": "a0f59630626f31da91fd138e49b3a1b8c82c68a9a24bdf919d979ef252681e23",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "PaginatedResponse",
+      "type": "type",
+      "filePath": "src/types/index.ts",
+      "exportType": "named",
+      "signature": "export type PaginatedResponse<T> = {\r",
+      "props": [],
+      "jsDoc": "Paginated response type",
+      "implementationHash": "75e13711271f3e91f7cfc7e019512ca3237c5b946b4ae27feb429acab1717f21",
+      "interfaceHash": "c6fdb2b1f67154d9579a5059db0c6d84fd6e976b1dd604699e66604ce56c06cd",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "shuffle",
+      "type": "utility",
+      "filePath": "src/utils/array-utils.ts",
+      "exportType": "named",
+      "signature": "shuffle = (array: T[]): T[] => ...",
+      "props": [],
+      "jsDoc": "Shuffles an array randomly using Fisher-Yates algorithm",
+      "implementationHash": "eded755830fdc38d8adc2d429f026cb250e78ab0e9446a30a1b248c706e0faa4",
+      "interfaceHash": "4dee303aa75910a6fad03a43ef816da315033d837d205fd606c4dd93254d1be8",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "unique",
+      "type": "utility",
+      "filePath": "src/utils/array-utils.ts",
+      "exportType": "named",
+      "signature": "unique = (array: T[]): T[] => ...",
+      "props": [],
+      "jsDoc": "Removes duplicate values from an array",
+      "implementationHash": "bbe7bb7b6bc5eef7c0861fe1dad9213c9fa987a68b803922319c21a803c7bcef",
+      "interfaceHash": "d0e44e23b8f2cfab858f2a4490225b3406ef9a0560045ed139d4a40cc618e7d0",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "chunk",
+      "type": "utility",
+      "filePath": "src/utils/array-utils.ts",
+      "exportType": "named",
+      "signature": "chunk = (array: T[], size: number): T[][] => ...",
+      "props": [],
+      "jsDoc": "Chunks an array into smaller arrays of specified size",
+      "implementationHash": "f90bad097dee73fcea9ad75ac012241aad21061a96502d0604faba3f40725047",
+      "interfaceHash": "4943e072735291f0ebbef9f20b08f324d7bdcf8131f55c8d91ba0ce02c3a6eea",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "groupBy",
+      "type": "utility",
+      "filePath": "src/utils/array-utils.ts",
+      "exportType": "named",
+      "signature": "groupBy = (array: T[], keyFn: (item: T) => K): Record<K, T[]> => ...",
+      "props": [],
+      "jsDoc": "Groups array items by a key function",
+      "implementationHash": "8bc1035588a67d0fdb9d05fba890aa749730413ad4c4ad5ead12db8a627e8dfc",
+      "interfaceHash": "8c5253f1aeda0ad0c6ddc0d07b6076adb5df69b7d5862234af9dae3209ebda95",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "debounce",
+      "type": "utility",
+      "filePath": "src/utils/debounce.ts",
+      "exportType": "named",
+      "signature": "debounce = (func: T, wait: number): ((...args: Parameters<T>) => void) => ...",
+      "props": [],
+      "jsDoc": "Creates a debounced function that delays invoking func until after wait milliseconds\r\nhave elapsed since the last time the debounced function was invoked\r\n\r\nUseful for limiting the rate at which a function is executed, especially for\r\nexpensive operations like API calls or DOM manipulations triggered by user input",
+      "implementationHash": "6c5b4a199bdce41a897e2a64cc56753a94df1083c5f73ad9f51209833640f06b",
+      "interfaceHash": "689e0a2cda1bce37b49f77edd6293fb3dd992804917c08f615c2b09a90ecb43e",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "capitalize",
+      "type": "utility",
+      "filePath": "src/utils/string-utils.ts",
+      "exportType": "named",
+      "signature": "capitalize = (str: string): string => ...",
+      "props": [],
+      "jsDoc": "Capitalizes the first letter of a string",
+      "implementationHash": "40326b539229828898f046252b5d737c8ab0385528041076f4b2322df587e349",
+      "interfaceHash": "e51c63e939aa47050f13aadccecfc2b765d98cc5ab437d433fd24294b38402ca",
+      "usedIn": [
+        {
+          "filePath": "src/App.tsx",
+          "line": 20
+        }
+      ],
+      "stories": []
+    },
+    {
+      "name": "toTitleCase",
+      "type": "utility",
+      "filePath": "src/utils/string-utils.ts",
+      "exportType": "named",
+      "signature": "toTitleCase = (str: string): string => ...",
+      "props": [],
+      "jsDoc": "Converts a string to title case (capitalizes first letter of each word)",
+      "implementationHash": "efa5754a51a2bf6e937d0f5e2b9f7b7af5a1730305b3ca8779a026128447bc18",
+      "interfaceHash": "1b88d1e3e00da4372caa6542587ea19475e32922308bcb1fed737f2bb3526138",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "truncate",
+      "type": "utility",
+      "filePath": "src/utils/string-utils.ts",
+      "exportType": "named",
+      "signature": "truncate = (str: string, maxLength: number): string => ...",
+      "props": [],
+      "jsDoc": "Truncates a string to a maximum length and adds ellipsis",
+      "implementationHash": "fba2552a34bf7855c69a24c251a4ad1a4d3225d9cad662183f267c6fcf524078",
+      "interfaceHash": "16c30fa7905568d9ab871b2959801c8ad9f9e6c6969a452bfb082bbdfed59e53",
+      "usedIn": [],
+      "stories": []
+    },
+    {
+      "name": "formatDate",
+      "type": "utility",
+      "filePath": "src/utils/string-utils.ts",
+      "exportType": "named",
+      "signature": "formatDate = (date: Date): string => ...",
+      "props": [],
+      "jsDoc": "Formats a date to a readable string",
+      "implementationHash": "ba7f7d59a6be1b998637ba76be1c4bb131461bce17ab12eed1d1450648cc302d",
+      "interfaceHash": "6ef2a06fa3d133a52d9855f606fcb85e8f89187a57df96c3c8204d4bf9ccf1c5",
+      "usedIn": [
+        {
+          "filePath": "src/App.tsx",
+          "line": 19
+        }
+      ],
+      "stories": []
+    }
+  ]
+}

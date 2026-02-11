@@ -1,0 +1,185 @@
+# Component & Utility Catalog (LLM-Optimized)
+# Generated: 2026-02-11T02:06:27.311Z
+
+# This file provides a concise overview of available components and utilities.
+# Use this to quickly find existing solutions before implementing new ones.
+
+# TABLE OF CONTENTS
+COMPONENTS: default, Button, Card, Modal
+HOOKS: useCounter, useLocalStorage, useToggle
+TYPES: ButtonVariant, ButtonProps, CardVariant, CardProps, ModalProps, UseCounterReturn, User, ApiResponse, PaginationMeta, PaginatedResponse
+UTILITIES: shuffle, unique, chunk, groupBy, debounce, capitalize, toTitleCase, truncate, formatDate
+
+## COMPONENTS
+
+[COMPONENT] default
+File: src/App.tsx
+What: Main application component that demonstrates various UI components and hooks
+Sig: function App()
+
+[COMPONENT] Button
+File: src/components/Button.tsx
+What: Reusable button component with multiple style variants
+ Use this for all clickable actions throughout the application
+Sig: Button = ({
+  children,
+  variant = "primary",
+  onClick,
+  disabled = false,
+  type = "button",
+  className = "",
+}: ButtonProps) => ...
+Uses: 8 locations
+
+[COMPONENT] Card
+File: src/components/Card.tsx
+What: Card component for grouping related content with optional title and footer
+ Commonly used for dashboard widgets, content sections, and feature highlights
+Sig: Card = ({
+  title,
+  children,
+  variant = "primary",
+  footer,
+  className = "",
+}: CardProps) => ...
+Uses: 4 locations
+
+[COMPONENT] Modal
+File: src/components/Modal.tsx
+What: Modal dialog component for displaying content in an overlay
+ Use this for confirmations, forms, or detailed information that needs focus
+Sig: Modal = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  width = "500px",
+}: ModalProps) => ...
+Uses: 2 locations
+
+## HOOKS
+
+[HOOK] useCounter
+File: src/hooks/useCounter.ts
+What: Hook for managing a numeric counter with increment, decrement, and reset functionality
+ Use this for any counting logic like pagination, quantity selectors, or score tracking
+Sig: useCounter = (initialValue: number = 0): UseCounterReturn => ...
+Uses: 1 locations
+
+[HOOK] useLocalStorage
+File: src/hooks/useLocalStorage.ts
+What: Hook for managing state that persists in localStorage
+ Use this to save user preferences, form data, or any state that should survive page refreshes
+Sig: useLocalStorage = (key: string, initialValue: T): [T, (value: T) => void] => ...
+
+[HOOK] useToggle
+File: src/hooks/useToggle.ts
+What: Hook for managing boolean toggle state
+ Use this for any on/off, show/hide, or open/close scenarios
+Sig: useToggle = (initialValue: boolean = false): [boolean, () => void] => ...
+Uses: 1 locations
+
+## TYPES
+
+[TYPE] ButtonVariant
+File: src/components/Button.tsx
+What: Button variants for different visual styles
+Sig: export type ButtonVariant = "primary" | "secondary" | "danger" | "success";
+
+[TYPE] ButtonProps
+File: src/components/Button.tsx
+What: Props for the Button component
+Sig: export interface ButtonProps {
+
+[TYPE] CardVariant
+File: src/components/Card.tsx
+What: Card variants for different visual styles
+Sig: export type CardVariant = "primary" | "secondary" | "info" | "warning";
+
+[TYPE] CardProps
+File: src/components/Card.tsx
+What: Props for the Card component
+Sig: export interface CardProps {
+
+[TYPE] ModalProps
+File: src/components/Modal.tsx
+What: Props for the Modal component
+Sig: export interface ModalProps {
+
+[TYPE] UseCounterReturn
+File: src/hooks/useCounter.ts
+What: Return type for the useCounter hook
+Sig: export interface UseCounterReturn {
+
+[TYPE] User
+File: src/types/index.ts
+What: User type definition
+Sig: export type User = {
+
+[TYPE] ApiResponse
+File: src/types/index.ts
+What: API response wrapper type
+Sig: export type ApiResponse<T> = {
+
+[TYPE] PaginationMeta
+File: src/types/index.ts
+What: Pagination metadata
+Sig: export type PaginationMeta = {
+
+[TYPE] PaginatedResponse
+File: src/types/index.ts
+What: Paginated response type
+Sig: export type PaginatedResponse<T> = {
+
+## UTILITIES
+
+[UTILITY] shuffle
+File: src/utils/array-utils.ts
+What: Shuffles an array randomly using Fisher-Yates algorithm
+Sig: shuffle = (array: T[]): T[] => ...
+
+[UTILITY] unique
+File: src/utils/array-utils.ts
+What: Removes duplicate values from an array
+Sig: unique = (array: T[]): T[] => ...
+
+[UTILITY] chunk
+File: src/utils/array-utils.ts
+What: Chunks an array into smaller arrays of specified size
+Sig: chunk = (array: T[], size: number): T[][] => ...
+
+[UTILITY] groupBy
+File: src/utils/array-utils.ts
+What: Groups array items by a key function
+Sig: groupBy = (array: T[], keyFn: (item: T) => K): Record<K, T[]> => ...
+
+[UTILITY] debounce
+File: src/utils/debounce.ts
+What: Creates a debounced function that delays invoking func until after wait milliseconds
+ have elapsed since the last time the debounced function was invoked
+ 
+ Useful for limiting the rate at which a function is executed, especially for
+ expensive operations like API calls or DOM manipulations triggered by user input
+Sig: debounce = (func: T, wait: number): ((...args: Parameters<T>) => void) => ...
+
+[UTILITY] capitalize
+File: src/utils/string-utils.ts
+What: Capitalizes the first letter of a string
+Sig: capitalize = (str: string): string => ...
+Uses: 1 locations
+
+[UTILITY] toTitleCase
+File: src/utils/string-utils.ts
+What: Converts a string to title case (capitalizes first letter of each word)
+Sig: toTitleCase = (str: string): string => ...
+
+[UTILITY] truncate
+File: src/utils/string-utils.ts
+What: Truncates a string to a maximum length and adds ellipsis
+Sig: truncate = (str: string, maxLength: number): string => ...
+
+[UTILITY] formatDate
+File: src/utils/string-utils.ts
+What: Formats a date to a readable string
+Sig: formatDate = (date: Date): string => ...
+Uses: 1 locations
