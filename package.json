@@ -38,6 +38,9 @@
   ],
   "author": "",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "commander": "14.0.3",
     "fastest-levenshtein": "1.0.16",
