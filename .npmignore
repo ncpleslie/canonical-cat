@@ -1,0 +1,10 @@
+src/
+example/
+test/
+tsconfig.json
+.gitignore
+*.log
+node_modules/
+.env
+biome.json
+vitest.config.ts
