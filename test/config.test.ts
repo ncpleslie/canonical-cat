@@ -16,8 +16,8 @@ describe("config", () => {
   });
 
   describe("loadConfig", () => {
-    it("should return default config when no config file exists", () => {
-      const config = loadConfig("/nonexistent/catalog.config.js");
+    it("should return default config when no config file exists", async () => {
+      const config = await loadConfig("/nonexistent/catalog.config.js");
 
       expect(config).toBeDefined();
       expect(config.include).toEqual(["src/**/*.{ts,tsx,js,jsx}"]);
@@ -26,19 +26,19 @@ describe("config", () => {
       expect(config.outputPath).toBeDefined();
     });
 
-    it("should load config from existing file", () => {
+    it("should load config from existing file", async () => {
       const testConfigPath = path.join(process.cwd(), "catalog.config.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.ts'],
           exclude: ['**/node_modules/**'],
           similarityThreshold: 0.85
         };`,
       );
 
-      const config = loadConfig();
+      const config = await loadConfig();
 
       expect(config).toBeDefined();
       expect(config.include).toBeDefined();
@@ -46,25 +46,25 @@ describe("config", () => {
       expect(config.similarityThreshold).toBe(0.85);
     });
 
-    it("should merge user config with defaults", () => {
+    it("should merge user config with defaults", async () => {
       const testConfigPath = path.join(process.cwd(), "catalog.config.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.ts'],
           exclude: []
         };`,
       );
 
-      const config = loadConfig();
+      const config = await loadConfig();
 
       // Should have defaults merged
       expect(config.exclude).toContain("**/node_modules/**");
       expect(config.barrelFilePatterns).toBeDefined();
     });
 
-    it("should find .mts config file", () => {
+    it("should find .mts config file", async () => {
       const testConfigPath = path.join(
         process.cwd(),
         "catalog-test1.config.mts",
@@ -72,19 +72,19 @@ describe("config", () => {
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.ts'],
           exclude: ['**/*.test.ts']
         };`,
       );
 
-      const config = loadConfig(testConfigPath);
+      const config = await loadConfig(testConfigPath);
 
       expect(config.include).toContain("src/**/*.ts");
       expect(config.exclude).toContain("**/*.test.ts");
     });
 
-    it("should find additional .mts config file", () => {
+    it("should find additional .mts config file", async () => {
       const testConfigPath = path.join(
         process.cwd(),
         "test-catalog.config.mts",
@@ -92,32 +92,32 @@ describe("config", () => {
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['lib/**/*.ts'],
           exclude: []
         };`,
       );
 
-      const config = loadConfig(testConfigPath);
+      const config = await loadConfig(testConfigPath);
 
       expect(config.include).toContain("lib/**/*.ts");
     });
 
-    it("should load .mts config file", () => {
+    it("should load .mts config file", async () => {
       const mtsPath = path.join(process.cwd(), "test-priority.config.mts");
       testFiles.push(mtsPath);
 
       fs.writeFileSync(
         mtsPath,
-        `module.exports = { include: ['mts-source/**/*.ts'], exclude: [] };`,
+        `export default { include: ['mts-source/**/*.ts'], exclude: [] };`,
       );
 
-      const config = loadConfig(mtsPath);
+      const config = await loadConfig(mtsPath);
 
       expect(config.include).toContain("mts-source/**/*.ts");
     });
 
-    it("should use defaults when no config file exists in current directory", () => {
+    it("should use defaults when no config file exists in current directory", async () => {
       // Save current directory config if it exists
       const defaultConfigPath = path.join(process.cwd(), "catalog.config.mts");
       const defaultMjsPath = path.join(process.cwd(), "catalog.config.mjs");
@@ -135,7 +135,7 @@ describe("config", () => {
       }
 
       try {
-        const config = loadConfig();
+        const config = await loadConfig();
 
         expect(config).toBeDefined();
         expect(config.include).toEqual(["src/**/*.{ts,tsx,js,jsx}"]);
@@ -153,38 +153,38 @@ describe("config", () => {
   });
 
   describe("Schema Validation", () => {
-    it("should reject empty include array", () => {
+    it("should reject empty include array", async () => {
       const testConfigPath = path.join(process.cwd(), "invalid-config.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = { include: [], exclude: [] };`,
+        `export default { include: [], exclude: [] };`,
       );
 
-      expect(() => loadConfig(testConfigPath)).toThrow(
+      await expect(() => loadConfig(testConfigPath)).rejects.toThrow(
         "Must specify at least one include pattern",
       );
     });
 
-    it("should reject invalid similarityThreshold", () => {
+    it("should reject invalid similarityThreshold", async () => {
       const testConfigPath = path.join(process.cwd(), "invalid-threshold.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = { include: ['src/**/*.ts'], similarityThreshold: 2.5 };`,
+        `export default { include: ['src/**/*.ts'], similarityThreshold: 2.5 };`,
       );
 
-      expect(() => loadConfig(testConfigPath)).toThrow(
+      await expect(() => loadConfig(testConfigPath)).rejects.toThrow(
         "Similarity threshold must be at most 1",
       );
     });
 
-    it("should accept valid configuration", () => {
+    it("should accept valid configuration", async () => {
       const testConfigPath = path.join(process.cwd(), "valid-config.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.{ts,tsx}'],
           exclude: ['**/*.test.ts'],
           barrelFilePatterns: ['**/index.ts'],
@@ -198,7 +198,7 @@ describe("config", () => {
         };`,
       );
 
-      const config = loadConfig(testConfigPath);
+      const config = await loadConfig(testConfigPath);
 
       expect(config.include).toContain("src/**/*.{ts,tsx}");
       expect(config.exclude).toContain("**/*.test.ts");
@@ -208,17 +208,17 @@ describe("config", () => {
       expect(config.output?.llmTxt).toBe(false);
     });
 
-    it("should merge storyFilePatterns with defaults", () => {
+    it("should merge storyFilePatterns with defaults", async () => {
       const testConfigPath = path.join(process.cwd(), "story-patterns.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.ts'],
         };`,
       );
 
-      const config = loadConfig(testConfigPath);
+      const config = await loadConfig(testConfigPath);
 
       expect(config.storyFilePatterns).toBeDefined();
       expect(config.storyFilePatterns).toContain(
@@ -227,7 +227,7 @@ describe("config", () => {
       expect(config.storyFilePatterns).toContain("**/*.story.{ts,tsx,js,jsx}");
     });
 
-    it("should accept custom storyFilePatterns", () => {
+    it("should accept custom storyFilePatterns", async () => {
       const testConfigPath = path.join(
         process.cwd(),
         "custom-story-patterns.mts",
@@ -235,25 +235,25 @@ describe("config", () => {
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.ts'],
           storyFilePatterns: ['**/*.stories.tsx', '**/*.sb.tsx'],
         };`,
       );
 
-      const config = loadConfig(testConfigPath);
+      const config = await loadConfig(testConfigPath);
 
       expect(config.storyFilePatterns).toContain("**/*.stories.tsx");
       expect(config.storyFilePatterns).toContain("**/*.sb.tsx");
       expect(config.storyFilePatterns).toHaveLength(2);
     });
 
-    it("should accept new output config format with enabled and filename", () => {
+    it("should accept new output config format with enabled and filename", async () => {
       const testConfigPath = path.join(process.cwd(), "new-format-config.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.ts'],
           output: {
             markdown: { enabled: true, filename: 'custom.md' },
@@ -263,7 +263,7 @@ describe("config", () => {
         };`,
       );
 
-      const config = loadConfig(testConfigPath);
+      const config = await loadConfig(testConfigPath);
 
       expect(config.output?.markdown).toEqual({
         enabled: true,
@@ -276,12 +276,12 @@ describe("config", () => {
       });
     });
 
-    it("should accept mixed boolean and object output config", () => {
+    it("should accept mixed boolean and object output config", async () => {
       const testConfigPath = path.join(process.cwd(), "mixed-config.mts");
       testFiles.push(testConfigPath);
       fs.writeFileSync(
         testConfigPath,
-        `module.exports = {
+        `export default {
           include: ['src/**/*.ts'],
           output: {
             markdown: true,
@@ -291,7 +291,7 @@ describe("config", () => {
         };`,
       );
 
-      const config = loadConfig(testConfigPath);
+      const config = await loadConfig(testConfigPath);
 
       expect(config.output?.markdown).toBe(true);
       expect(config.output?.llmTxt).toEqual({

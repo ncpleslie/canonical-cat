@@ -31,7 +31,7 @@ import type {
  *
  * @example
  * ```typescript
- * const config = loadConfig();
+ * const config = await loadConfig();
  * const tsConfigPath = findTsConfig();
  * const generator = new CatalogGenerator(config, tsConfigPath);
  * ```
@@ -49,7 +49,7 @@ export class CatalogGenerator {
    *
    * @example
    * ```typescript
-   * const config = loadConfig();
+   * const config = await loadConfig();
    * const tsConfigPath = findTsConfig();
    * const generator = new CatalogGenerator(config, tsConfigPath);
    *

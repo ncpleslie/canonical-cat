@@ -23,18 +23,18 @@ import type { CatalogConfig } from "./types";
  * @example
  * ```typescript
  * // Load config from default location (catalog.config.mts or catalog.config.mjs)
- * const config = loadConfig();
+ * const config = await loadConfig();
  * console.log(config.include); // ["src/**\/*.{ts,tsx}"]
  *
  * // Load config from specific path
- * const config = loadConfig("./custom-config/catalog.config.mts");
+ * const config = await loadConfig("./custom-config/catalog.config.mts");
  *
  * // Config is merged with defaults
- * const config = loadConfig();
+ * const config = await loadConfig();
  * console.log(config.llmOptimized.enabled); // true (from DEFAULT_CONFIG)
  * ```
  */
-export function loadConfig(configPath?: string): CatalogConfig {
+export async function loadConfig(configPath?: string): Promise<CatalogConfig> {
   let configFile = configPath;
 
   const cwd = process.cwd();
@@ -62,7 +62,8 @@ export function loadConfig(configPath?: string): CatalogConfig {
   }
 
   try {
-    const userConfig = require(configFile);
+    const configModule = await import(configFile);
+    const userConfig = configModule.default || configModule;
     const validationResult = CATALOG_CONFIG_SCHEMA.safeParse(userConfig);
 
     if (!validationResult.success) {

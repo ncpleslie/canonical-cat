@@ -55,7 +55,7 @@ program
   .action(async (options) => {
     try {
       console.log("🚀 Starting catalog generation...\n");
-      const config = loadConfig(options.config);
+      const config = await loadConfig(options.config);
       const tsConfigPath = findTsConfig();
       if (tsConfigPath) {
         console.log(`Using TypeScript config: ${tsConfigPath}\n`);
