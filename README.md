@@ -1,6 +1,6 @@
 # Canonical Cat
 
-A command-line tool for enhancing code discovery in large React projects. As codebases grow, finding and understanding existing components, hooks, and utilities becomes difficult. Component Cat automatically generates searchable documentation catalogs by scanning your codebase, extracting TypeScript signatures and usage patterns, and producing multiple forms of documentation that serves as a source-of-truth for both developers and AI coding assistants.
+A command-line tool for enhancing code discovery in large React projects. As codebases grow, finding and understanding existing components, hooks, and utilities becomes difficult. Canonical Cat automatically generates searchable documentation catalogs by scanning your codebase, extracting TypeScript signatures and usage patterns, and producing multiple forms of documentation that serves as a source-of-truth for both developers and AI coding assistants.
 
 ## Installation
 
@@ -163,7 +163,7 @@ Component Cat generates two hashes for each component:
 1. **Implementation Hash** - Function body and logic
 2. **Interface Hash** - Props, types, and signature
 
-Only components with changed hashes are regenerated, avoiding unnecessary LLM calls.
+Only components with changed hashes are regenerated.
 
 ### Usage Tracking
 
@@ -192,7 +192,7 @@ cat CATALOG.md
 
 The example cataloged **26 items** including Button, Card, Modal components, custom hooks, and utility functions with full TypeScript types.
 
-**[See the example project](./example/README.md)**
+**[See the example project](./example/)**
 
 ## TypeScript Support
 

@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/ncpleslie/canonical-cat/issues"
   },
-  "homepage": "https://github.com/ncpleslie/canonical-cat#readme",
+  "homepage": "https://github.com/ncpleslie/canonical-cat",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",

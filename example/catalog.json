@@ -1,5 +1,5 @@
 {
-  "generated": "2026-02-11T02:06:27.312Z",
+  "generated": "2026-02-11T03:31:08.462Z",
   "version": "1.0.0",
   "components": [
     {
@@ -51,40 +51,7 @@
       "jsDoc": "Reusable button component with multiple style variants\r\nUse this for all clickable actions throughout the application",
       "implementationHash": "e9b80350553099d7eb8d484cd1ade5dc9906d1dd6ff51e65c8970ce5f7ecb8b1",
       "interfaceHash": "d8d1fa1b4fdae451b8e3ac4d5a9c7e3ab39b62d79019261c1512bc2b49835a50",
-      "usedIn": [
-        {
-          "filePath": "src/App.tsx",
-          "line": 26
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 28
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 29
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 31
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 32
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 34
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 39
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 41
-        }
-      ],
+      "usedIn": [],
       "stories": []
     },
     {
@@ -123,24 +90,7 @@
       "jsDoc": "Card component for grouping related content with optional title and footer\r\nCommonly used for dashboard widgets, content sections, and feature highlights",
       "implementationHash": "334ec7a5136385a91303bd3177702250c08856d6e3b71bd5a97add96123f93a5",
       "interfaceHash": "c09ef4daffe90a1614a5b2863e3aaf5bb62b7c0234f5b4fc9f4affd2415e4b97",
-      "usedIn": [
-        {
-          "filePath": "src/App.tsx",
-          "line": 23
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 36
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 38
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 42
-        }
-      ],
+      "usedIn": [],
       "stories": []
     },
     {
@@ -166,16 +116,7 @@
       "jsDoc": "Modal dialog component for displaying content in an overlay\r\nUse this for confirmations, forms, or detailed information that needs focus",
       "implementationHash": "008ea4ae3ebba28be2aa231170c400ce1231fb4e385735bfe5a4d03720655c99",
       "interfaceHash": "25a3a4a736d892d4f3be6fa11ad0060c87fbf17f0728bc3f1f496e74ecaecf67",
-      "usedIn": [
-        {
-          "filePath": "src/App.tsx",
-          "line": 44
-        },
-        {
-          "filePath": "src/App.tsx",
-          "line": 47
-        }
-      ],
+      "usedIn": [],
       "stories": []
     },
     {
@@ -238,58 +179,6 @@
           "line": 12
         }
       ],
-      "stories": []
-    },
-    {
-      "name": "User",
-      "type": "type",
-      "filePath": "src/types/index.ts",
-      "exportType": "named",
-      "signature": "export type User = {\r",
-      "props": [],
-      "jsDoc": "User type definition",
-      "implementationHash": "959860064e3a5664162d982bb26a0d85bc27f53af237633b119add42aeab9db1",
-      "interfaceHash": "920a62a830259cc5334d9bba7b0dc9e2fbf76791a23e87130338ff7e46b6e223",
-      "usedIn": [],
-      "stories": []
-    },
-    {
-      "name": "ApiResponse",
-      "type": "type",
-      "filePath": "src/types/index.ts",
-      "exportType": "named",
-      "signature": "export type ApiResponse<T> = {\r",
-      "props": [],
-      "jsDoc": "API response wrapper type",
-      "implementationHash": "c733165669b38566347b4094ef3dab0fec1de41e4225bda81f0959e05d8af549",
-      "interfaceHash": "e594ae5300bec895867dd5312beb5662ae9e5a1b69084e6d461be7469a3ff9a5",
-      "usedIn": [],
-      "stories": []
-    },
-    {
-      "name": "PaginationMeta",
-      "type": "type",
-      "filePath": "src/types/index.ts",
-      "exportType": "named",
-      "signature": "export type PaginationMeta = {\r",
-      "props": [],
-      "jsDoc": "Pagination metadata",
-      "implementationHash": "fd066efa7c7a7c1f6f2d80ae1863477ebb3602f26641bf5c477423544bb88447",
-      "interfaceHash": "a0f59630626f31da91fd138e49b3a1b8c82c68a9a24bdf919d979ef252681e23",
-      "usedIn": [],
-      "stories": []
-    },
-    {
-      "name": "PaginatedResponse",
-      "type": "type",
-      "filePath": "src/types/index.ts",
-      "exportType": "named",
-      "signature": "export type PaginatedResponse<T> = {\r",
-      "props": [],
-      "jsDoc": "Paginated response type",
-      "implementationHash": "75e13711271f3e91f7cfc7e019512ca3237c5b946b4ae27feb429acab1717f21",
-      "interfaceHash": "c6fdb2b1f67154d9579a5059db0c6d84fd6e976b1dd604699e66604ce56c06cd",
-      "usedIn": [],
       "stories": []
     },
     {

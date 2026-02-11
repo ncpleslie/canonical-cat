@@ -1,6 +1,6 @@
 # Component & Utility Catalog
 
-> Auto-generated on 2026-02-11T02:06:27.311Z
+> Auto-generated on 2026-02-11T03:31:08.460Z
 
 ## Table of Contents
 
@@ -43,17 +43,6 @@ Button = ({
 }: ButtonProps) => ...
 ```
 
-**Used in 8 places:**
-
-- `src/App.tsx:26`
-- `src/App.tsx:28`
-- `src/App.tsx:29`
-- `src/App.tsx:31`
-- `src/App.tsx:32`
-- `src/App.tsx:34`
-- `src/App.tsx:39`
-- `src/App.tsx:41`
-
 ---
 
 ### Card
@@ -74,13 +63,6 @@ Card = ({
 }: CardProps) => ...
 ```
 
-**Used in 4 places:**
-
-- `src/App.tsx:23`
-- `src/App.tsx:36`
-- `src/App.tsx:38`
-- `src/App.tsx:42`
-
 ---
 
 ### Modal
@@ -100,11 +82,6 @@ Modal = ({
   width = "500px",
 }: ModalProps) => ...
 ```
-
-**Used in 2 places:**
-
-- `src/App.tsx:44`
-- `src/App.tsx:47`
 
 ---
 
@@ -236,58 +213,6 @@ Return type for the useCounter hook
 **Signature:**
 ```typescript
 export interface UseCounterReturn {
-```
-
----
-
-### User
-
-**File:** `src/types/index.ts`
-
-User type definition
-
-**Signature:**
-```typescript
-export type User = {
-```
-
----
-
-### ApiResponse
-
-**File:** `src/types/index.ts`
-
-API response wrapper type
-
-**Signature:**
-```typescript
-export type ApiResponse<T> = {
-```
-
----
-
-### PaginationMeta
-
-**File:** `src/types/index.ts`
-
-Pagination metadata
-
-**Signature:**
-```typescript
-export type PaginationMeta = {
-```
-
----
-
-### PaginatedResponse
-
-**File:** `src/types/index.ts`
-
-Paginated response type
-
-**Signature:**
-```typescript
-export type PaginatedResponse<T> = {
 ```
 
 ---

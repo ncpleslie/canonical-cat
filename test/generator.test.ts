@@ -17,6 +17,7 @@ describe("CatalogGenerator", () => {
     exclude: ["**/node_modules/**"],
     storyFilePatterns: ["**/*.stories.tsx"],
     barrelFilePatterns: ["**/index.ts"],
+    constantsFilePatterns: ["**/*.constants.{ts,tsx,js,jsx}"],
     similarityThreshold: 0.85,
     outputPath: outputDir,
   } satisfies CatalogConfig;
@@ -499,6 +500,197 @@ export const DefaultButton = () => {
       expect(button).toBeDefined();
       expect(button.type).toBe("component");
       expect(button.name).toBe("DefaultButton");
+    });
+  });
+
+  describe("File Exclusion", () => {
+    it("should exclude story files from catalog output", async () => {
+      // Create a regular component
+      const componentFile = path.join(testDir, "Button.tsx");
+      fs.writeFileSync(
+        componentFile,
+        `
+export const Button = () => {
+  return <button>Click me</button>;
+};
+`,
+      );
+
+      // Create a story file with story components
+      const storyFile = path.join(testDir, "Button.stories.tsx");
+      fs.writeFileSync(
+        storyFile,
+        `
+import { Button } from './Button';
+
+export default {
+  title: 'Button',
+  component: Button,
+};
+
+export const Primary = () => <Button />;
+export const Secondary = () => <Button />;
+`,
+      );
+
+      const generator = new CatalogGenerator(config);
+      await generator.generate(true);
+
+      const catalog = JSON.parse(
+        fs.readFileSync(path.join(outputDir, "catalog.json"), "utf-8"),
+      );
+
+      // Button component should be in the catalog
+      const button = catalog.components.find((c: any) => c.name === "Button");
+      expect(button).toBeDefined();
+
+      // Story exports (Primary, Secondary) should NOT be in the catalog
+      const primary = catalog.components.find((c: any) => c.name === "Primary");
+      const secondary = catalog.components.find(
+        (c: any) => c.name === "Secondary",
+      );
+      expect(primary).toBeUndefined();
+      expect(secondary).toBeUndefined();
+    });
+
+    it("should exclude barrel files from catalog output", async () => {
+      // Create a regular component
+      const componentFile = path.join(testDir, "Card.tsx");
+      fs.writeFileSync(
+        componentFile,
+        `
+export const Card = () => {
+  return <div>Card content</div>;
+};
+`,
+      );
+
+      // Create a barrel file (index.ts)
+      const barrelFile = path.join(testDir, "index.ts");
+      fs.writeFileSync(
+        barrelFile,
+        `
+export { Card } from './Card';
+export const barrelUtility = () => 'utility';
+`,
+      );
+
+      const generator = new CatalogGenerator(config);
+      await generator.generate(true);
+
+      const catalog = JSON.parse(
+        fs.readFileSync(path.join(outputDir, "catalog.json"), "utf-8"),
+      );
+
+      // Card component should be in the catalog
+      const card = catalog.components.find((c: any) => c.name === "Card");
+      expect(card).toBeDefined();
+
+      // Barrel file's barrelUtility should NOT be in the catalog
+      const barrelUtility = catalog.components.find(
+        (c: any) => c.name === "barrelUtility",
+      );
+      expect(barrelUtility).toBeUndefined();
+    });
+
+    it("should exclude constants files from catalog output", async () => {
+      // Create a regular component
+      const componentFile = path.join(testDir, "Widget.tsx");
+      fs.writeFileSync(
+        componentFile,
+        `
+export const Widget = () => {
+  return <div>Widget</div>;
+};
+`,
+      );
+
+      // Create a constants file
+      const constantsFile = path.join(testDir, "theme.constants.ts");
+      fs.writeFileSync(
+        constantsFile,
+        `
+export const COLORS = {
+  primary: '#007bff',
+  secondary: '#6c757d',
+};
+
+export const SPACING = {
+  small: 8,
+  medium: 16,
+  large: 24,
+};
+`,
+      );
+
+      const testConfig = {
+        ...config,
+        constantsFilePatterns: ["**/*.constants.ts"],
+      };
+
+      const generator = new CatalogGenerator(testConfig);
+      await generator.generate(true);
+
+      const catalog = JSON.parse(
+        fs.readFileSync(path.join(outputDir, "catalog.json"), "utf-8"),
+      );
+
+      // Widget component should be in the catalog
+      const widget = catalog.components.find((c: any) => c.name === "Widget");
+      expect(widget).toBeDefined();
+
+      // Constants should NOT be in the catalog
+      const colors = catalog.components.find((c: any) => c.name === "COLORS");
+      const spacing = catalog.components.find((c: any) => c.name === "SPACING");
+      expect(colors).toBeUndefined();
+      expect(spacing).toBeUndefined();
+    });
+
+    it("should support custom patterns for file exclusion", async () => {
+      // Create a regular component
+      const componentFile = path.join(testDir, "Panel.tsx");
+      fs.writeFileSync(
+        componentFile,
+        `
+export const Panel = () => {
+  return <div>Panel</div>;
+};
+`,
+      );
+
+      // Create a file matching custom pattern
+      const configFile = path.join(testDir, "app.config.ts");
+      fs.writeFileSync(
+        configFile,
+        `
+export const appConfig = {
+  name: 'My App',
+  version: '1.0.0',
+};
+`,
+      );
+
+      const testConfig = {
+        ...config,
+        constantsFilePatterns: ["**/*.config.ts"],
+      };
+
+      const generator = new CatalogGenerator(testConfig);
+      await generator.generate(true);
+
+      const catalog = JSON.parse(
+        fs.readFileSync(path.join(outputDir, "catalog.json"), "utf-8"),
+      );
+
+      // Panel component should be in the catalog
+      const panel = catalog.components.find((c: any) => c.name === "Panel");
+      expect(panel).toBeDefined();
+
+      // Config should NOT be in the catalog
+      const appConfig = catalog.components.find(
+        (c: any) => c.name === "appConfig",
+      );
+      expect(appConfig).toBeUndefined();
     });
   });
 });

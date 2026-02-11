@@ -10,6 +10,7 @@ export interface CatalogConfig {
   exclude: string[];
   barrelFilePatterns: string[];
   storyFilePatterns: string[];
+  constantsFilePatterns: string[];
   similarityThreshold: number;
   outputPath?: string;
   cacheDir?: string;

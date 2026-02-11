@@ -1,6 +1,6 @@
-import { Button } from "./components/Button";
-import { Card } from "./components/Card";
-import { Modal } from "./components/Modal";
+import { Button } from "./components";
+import { Card } from "./components";
+import { Modal } from "./components";
 import { useCounter } from "./hooks/useCounter";
 import { useToggle } from "./hooks/useToggle";
 import { formatDate, capitalize } from "./utils/string-utils";

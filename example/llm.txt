@@ -1,5 +1,5 @@
 # Component & Utility Catalog (LLM-Optimized)
-# Generated: 2026-02-11T02:06:27.311Z
+# Generated: 2026-02-11T03:31:08.460Z
 
 # This file provides a concise overview of available components and utilities.
 # Use this to quickly find existing solutions before implementing new ones.
@@ -7,7 +7,7 @@
 # TABLE OF CONTENTS
 COMPONENTS: default, Button, Card, Modal
 HOOKS: useCounter, useLocalStorage, useToggle
-TYPES: ButtonVariant, ButtonProps, CardVariant, CardProps, ModalProps, UseCounterReturn, User, ApiResponse, PaginationMeta, PaginatedResponse
+TYPES: ButtonVariant, ButtonProps, CardVariant, CardProps, ModalProps, UseCounterReturn
 UTILITIES: shuffle, unique, chunk, groupBy, debounce, capitalize, toTitleCase, truncate, formatDate
 
 ## COMPONENTS
@@ -29,7 +29,6 @@ Sig: Button = ({
   type = "button",
   className = "",
 }: ButtonProps) => ...
-Uses: 8 locations
 
 [COMPONENT] Card
 File: src/components/Card.tsx
@@ -42,7 +41,6 @@ Sig: Card = ({
   footer,
   className = "",
 }: CardProps) => ...
-Uses: 4 locations
 
 [COMPONENT] Modal
 File: src/components/Modal.tsx
@@ -55,7 +53,6 @@ Sig: Modal = ({
   children,
   width = "500px",
 }: ModalProps) => ...
-Uses: 2 locations
 
 ## HOOKS
 
@@ -110,26 +107,6 @@ Sig: export interface ModalProps {
 File: src/hooks/useCounter.ts
 What: Return type for the useCounter hook
 Sig: export interface UseCounterReturn {
-
-[TYPE] User
-File: src/types/index.ts
-What: User type definition
-Sig: export type User = {
-
-[TYPE] ApiResponse
-File: src/types/index.ts
-What: API response wrapper type
-Sig: export type ApiResponse<T> = {
-
-[TYPE] PaginationMeta
-File: src/types/index.ts
-What: Pagination metadata
-Sig: export type PaginationMeta = {
-
-[TYPE] PaginatedResponse
-File: src/types/index.ts
-What: Paginated response type
-Sig: export type PaginatedResponse<T> = {
 
 ## UTILITIES
 

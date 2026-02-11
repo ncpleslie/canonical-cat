@@ -50,6 +50,12 @@ export const DEFAULT_CONFIG = {
     "**/*.stories.{ts,tsx,js,jsx}",
     "**/*.story.{ts,tsx,js,jsx}",
   ],
+  constantsFilePatterns: [
+    "**/*.constants.{ts,tsx,js,jsx}",
+    "**/*.constant.{ts,tsx,js,jsx}",
+    "**/*.const.{ts,tsx,js,jsx}",
+    "**/constant.{ts,tsx,js,jsx}",
+  ],
   similarityThreshold: 0.85,
   outputPath: process.cwd(),
 };
@@ -102,6 +108,14 @@ export const CATALOG_CONFIG_SCHEMA = z.object({
     .optional()
     .describe(
       `Optional array of patterns for story files. Example: ["**/*.stories.tsx"]. Default: ${JSON.stringify(DEFAULT_CONFIG.storyFilePatterns)}`,
+    ),
+  constantsFilePatterns: z
+    .array(z.string(), {
+      error: `Field "constantsFilePatterns" must be an array of strings. Example: ["**/*.constants.ts"]. Default: ${JSON.stringify(DEFAULT_CONFIG.constantsFilePatterns)}`,
+    })
+    .optional()
+    .describe(
+      `Optional array of patterns for constants files. Example: ["**/*.constants.ts"]. Default: ${JSON.stringify(DEFAULT_CONFIG.constantsFilePatterns)}`,
     ),
   similarityThreshold: z
     .number({
@@ -166,7 +180,7 @@ export const EXAMPLE_CONFIG = `module.exports = {
     '**/*.spec.{ts,tsx,js,jsx}',
   ],
   
-  // Patterns to identify barrel files (excluded from usage tracking)
+  // Patterns to identify barrel files (excluded from catalog output)
   barrelFilePatterns: [
     '**/index.ts',
     '**/index.tsx',
@@ -178,6 +192,12 @@ export const EXAMPLE_CONFIG = `module.exports = {
   storyFilePatterns: [
     '**/*.stories.{ts,tsx,js,jsx}',
     '**/*.story.{ts,tsx,js,jsx}',
+  ],
+  
+  // Patterns to identify constants files
+  constantsFilePatterns: [
+    '**/*.constants.{ts,tsx,js,jsx}',
+    '**/*.const.{ts,tsx,js,jsx}',
   ],
   
   // Similarity threshold (0-1) for detecting changes

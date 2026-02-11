@@ -40,25 +40,32 @@ export class CatalogGenerator {
   private config: CatalogConfig;
   private project: Project;
   private writer: CatalogWriter;
+  private verbose: boolean;
 
   /**
    * Create a new CatalogGenerator instance.
    *
    * @param config - The validated catalog configuration object
    * @param tsConfigPath - Optional path to tsconfig.json for TypeScript project settings
+   * @param verbose - Enable verbose output with progress bars and timing (default: false)
    *
    * @example
    * ```typescript
    * const config = await loadConfig();
    * const tsConfigPath = findTsConfig();
-   * const generator = new CatalogGenerator(config, tsConfigPath);
+   * const generator = new CatalogGenerator(config, tsConfigPath, true);
    *
    * // Generate the catalog
    * await generator.generate();
    * ```
    */
-  constructor(config: CatalogConfig, tsConfigPath?: string) {
+  constructor(
+    config: CatalogConfig,
+    tsConfigPath?: string,
+    verbose: boolean = false,
+  ) {
     this.config = config;
+    this.verbose = verbose;
 
     this.project = new Project({
       tsConfigFilePath: tsConfigPath,
@@ -90,16 +97,24 @@ export class CatalogGenerator {
    * ```
    */
   async generate(force: boolean = false): Promise<void> {
+    const totalStartTime = Date.now();
+
     console.log("🔍 Scanning codebase...");
+    const filesStartTime = Date.now();
 
     const files = await this.findSourceFiles();
     console.log(`Found ${files.length} files to analyze`);
+    this.logTiming("File discovery", filesStartTime);
 
+    const loadStartTime = Date.now();
     this.project.addSourceFilesAtPaths(files);
+    this.logTiming("Loading files into ts-morph", loadStartTime);
 
     console.log("Extracting components and utilities...");
+    const extractStartTime = Date.now();
     const components = await this.extractComponents();
     console.log(`Found ${components.length} exportable items`);
+    this.logTiming("Component extraction", extractStartTime);
 
     const cache = loadCache(this.config.cacheDir);
 
@@ -126,10 +141,14 @@ export class CatalogGenerator {
     );
 
     console.log("Tracking usages across codebase...");
+    const usageStartTime = Date.now();
     const usageMap = await this.trackUsages(components);
+    this.logTiming("Usage tracking", usageStartTime);
 
     console.log("Looking for Storybook stories...");
+    const storiesStartTime = Date.now();
     const storiesMap = await this.findStories(components);
+    this.logTiming("Story detection", storiesStartTime);
 
     for (const component of components) {
       const absolutePath = path.resolve(process.cwd(), component.filePath);
@@ -139,6 +158,7 @@ export class CatalogGenerator {
     }
 
     console.log("Generating catalog files...");
+    const outputStartTime = Date.now();
     this.writer.initialize();
 
     for (const component of components) {
@@ -158,8 +178,10 @@ export class CatalogGenerator {
 
     this.writer.finalize();
     saveCache(cache, this.config.cacheDir);
+    this.logTiming("Output generation", outputStartTime);
 
     console.log("✅ Catalog generated successfully!");
+    this.logTiming("Total time", totalStartTime);
 
     const outputConfig = this.config.output;
     const getFilename = (
@@ -183,20 +205,35 @@ export class CatalogGenerator {
   /**
    * Find all source files that match the include patterns from the configuration,
    * while respecting the exclude patterns. Returns absolute file paths.
+   * Processes all glob patterns in parallel for better performance.
+   *
+   * Automatically excludes:
+   * - Story files (*.stories.*, *.story.*)
+   * - Barrel files (index.ts/tsx/js/jsx)
+   * - Constants files (*.constants.*, *.const.*)
    *
    * @returns Promise resolving to an array of absolute file paths
    */
   private async findSourceFiles(): Promise<string[]> {
-    const files: string[] = [];
+    // Combine all exclusion patterns: user excludes + stories + barrels + constants
+    const allExcludePatterns = [
+      ...this.config.exclude,
+      ...this.config.storyFilePatterns,
+      ...this.config.barrelFilePatterns,
+      ...this.config.constantsFilePatterns,
+    ];
 
-    for (const pattern of this.config.include) {
-      const matches = await glob(pattern, {
-        ignore: this.config.exclude,
+    // Process all glob patterns in parallel
+    const globPromises = this.config.include.map((pattern) =>
+      glob(pattern, {
+        ignore: allExcludePatterns,
         absolute: true,
         cwd: process.cwd(),
-      });
-      files.push(...matches);
-    }
+      }),
+    );
+
+    const results = await Promise.all(globPromises);
+    const files = results.flat();
 
     return [...new Set(files)];
   }
@@ -212,6 +249,8 @@ export class CatalogGenerator {
     const components: ComponentMetadata[] = [];
     const sourceFiles = this.project.getSourceFiles();
 
+    let processedCount = 0;
+    const totalFiles = sourceFiles.length;
     const extractPromises = sourceFiles.map(async (sourceFile) => {
       const absolutePath = sourceFile.getFilePath();
       const filePath = path
@@ -231,6 +270,13 @@ export class CatalogGenerator {
           if (component) {
             fileComponents.push(component);
           }
+        }
+      }
+
+      if (this.verbose) {
+        processedCount++;
+        if (processedCount % 10 === 0 || processedCount === totalFiles) {
+          console.log(`   Extracted ${processedCount}/${totalFiles} files`);
         }
       }
 
@@ -490,10 +536,21 @@ export class CatalogGenerator {
       name: c.name,
       filePath: path.resolve(process.cwd(), c.filePath),
     }));
+
+    const totalComponents = symbols.length;
     const usageMap = await batchTrackUsages(
       this.project,
       symbols,
       this.config.barrelFilePatterns,
+      this.verbose
+        ? (current: number) => {
+            if (current % 10 === 0 || current === totalComponents) {
+              console.log(
+                `   Tracked ${current}/${totalComponents} components`,
+              );
+            }
+          }
+        : undefined,
     );
 
     return usageMap;
@@ -510,17 +567,17 @@ export class CatalogGenerator {
   private async findStories(
     components: ComponentMetadata[],
   ): Promise<Map<string, Array<{ name: string; filePath: string }>>> {
-    const storyFiles: string[] = [];
-
-    for (const pattern of this.config.storyFilePatterns) {
-      const matches = await glob(pattern, {
+    // Process all story patterns in parallel
+    const storyPromises = this.config.storyFilePatterns.map((pattern) =>
+      glob(pattern, {
         ignore: this.config.exclude,
         absolute: true,
         cwd: process.cwd(),
-      });
-      storyFiles.push(...matches);
-    }
+      }),
+    );
 
+    const results = await Promise.all(storyPromises);
+    const storyFiles = results.flat();
     const uniqueStoryFiles = [...new Set(storyFiles)];
 
     const storiesMap = new Map<
@@ -557,5 +614,18 @@ export class CatalogGenerator {
     }
 
     return storiesMap;
+  }
+
+  /**
+   * Log timing information for a specific phase (only in verbose mode).
+   *
+   * @param phaseName - Name of the phase being timed
+   * @param startTime - Start time from Date.now()
+   */
+  private logTiming(phaseName: string, startTime: number): void {
+    if (this.verbose) {
+      const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+      console.log(`   ${phaseName}: ${elapsed}s`);
+    }
   }
 }

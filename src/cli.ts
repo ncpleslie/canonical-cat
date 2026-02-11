@@ -27,6 +27,7 @@ program
   .option("-c, --config <path>", "Path to catalog.config.js")
   .option("-f, --force", "Force regeneration of all components (ignore cache)")
   .option("--filter <pattern>", "Filter components by name pattern")
+  .option("-v, --verbose", "Show detailed progress information and timing")
   /**
    * Handle the 'generate' command to create component catalogs.
    * Loads configuration, finds TypeScript config, initializes the generator,
@@ -65,7 +66,11 @@ program
         );
       }
 
-      const generator = new CatalogGenerator(config, tsConfigPath);
+      const generator = new CatalogGenerator(
+        config,
+        tsConfigPath,
+        options.verbose,
+      );
       await generator.generate(options.force);
 
       console.log("\n🎉 Done!");
